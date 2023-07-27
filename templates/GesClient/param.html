@@ -1,0 +1,224 @@
+{% extends 'GesClient/base.html' %}
+
+{% block param%} 
+
+
+<span  ><h2 class="centre">Paramètre</h2></span>
+{% endblock %}
+
+{% block conteneur%}
+<h1  class="alert alert-dark" style="text-align: center;"><b>Modifications et consultation des informations du compte</b></h1>
+
+<hr class="ligne">
+<br />  <br />  <br /> 
+
+  <div class="parametre" id="p1">
+   
+                                <h3 class="alert alert-info">Modifier vos informations</h3>
+                             
+                                   
+
+                                    <div class="form-group first">
+                                        <h5>Nom:</h5>
+                                        <label for="categorie"></label>
+                                        {{ user.last_name | upper}}
+                                    </div>
+
+                                    <div class="form-group first"><h5>Prénom:</h5>
+                                        <label for="prenom"></label>
+                                        {{ user.first_name | upper }}
+                                    </div>
+
+                                    
+                                    <div class="form-group first">
+                                        <h5>Nom utilisateur:</h5>
+                                        <label for="categorie"></label>
+                                        {{ user.username | upper}}
+                                    </div>
+
+                                    <div class="form-group first"> 
+                                        <h5>Email:</h5> {{ user.email }}
+                                    </div>
+
+                                    
+                                    <div class="form-group first">
+                                        <h5>Poste:</h5>
+                                        <label for="categorie"></label>
+                                        {{ user.poste | upper}}
+                                    </div>
+
+                                    <div class="form-group first"> <h5>Statut: </h5>
+                                        <label for="prenom"></label>
+                                        {{ user.is_role | upper}}
+                                    </div>
+
+
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" name="pwd">Modifier</button>
+                                        <!-- Modal -->
+
+                                    
+       
+  </div>
+       
+
+
+
+
+
+
+<div class="parametre" id="p2" style="height:550px;">
+ 
+          <h3 class="alert alert-info ">Changer votre mot de passe </h3>
+          <form >
+
+
+            <div class="form-group">
+             Ancien mot de passe:
+              <input type="text" class="form-control" placeholder="***************************" disabled>
+          </div>
+
+          <div class="form-group">
+            Nouveau mot de passe:
+            <input type="text" class="form-control" placeholder="***************************" disabled>
+         </div>
+
+         <div class="form-group">
+          Confirmation du nouveau mot de passe: 
+          <input type="text" class="form-control" placeholder="***************************" disabled>
+       </div>
+
+
+                <br> <br>
+            
+
+
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#motpasse" name="info">Changer votre mot de passe</button>
+
+       </form>
+                                
+   
+</div>
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" >
+      <div class="  modal-content modal-tall-sm" >
+        <div class="modal-header">
+          
+          <h5 class="modal-title" id="exampleModalLabel">Effectuer une modification</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <form action="" method="POST">
+            {% csrf_token %}
+        </div>
+        <div class="modal-body">
+          <h2 class="alert alert-info  text-center">Modifications</h2>
+
+            
+                              <div class="form-group first">Nom :
+                                <label for="last_name"></label>
+                                  {{ form.last_name }}
+                              </div>
+                              <div class="form-group first">Prénom :
+                                <label for="first_name"></label>
+                                  {{ form.first_name }}
+                              </div>
+                              <div class="form-group first">Nom d'utilisateur :
+                                <label for="username"></label>
+                                  {{ form.username }}
+                              </div>
+                              <div class="form-group first">Email:
+                                <label for="email"></label>
+                                  {{ form.email}}
+                              </div>
+                              <div class="form-group first">Poste:
+                                <label for="poste"></label>
+                                  {{ form.poste}}
+                              </div>
+                   
+                            
+                            <span class="text-error" style="color:red">{{ form.errors }}</span> 
+
+                        
+
+        </div>
+        <div class="modal-footer">
+        
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+          <input type="submit" onclick="return confirm('Etes-vous sûr de vouloir modifier vos Informations ?')"  value="Modifier" class="btn btn-primary">
+
+
+        </form> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="modal fade" id="motpasse" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" >
+      <div class="  modal-content modal-tall-sm" >
+        <div class="modal-header">
+          
+          <h5 class="modal-title" id="exampleModalLabel">Effectuer une modification</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <form enctype="multipart/form-data" method="POST">
+             {% csrf_token %}
+        </div>
+        <div class="modal-body">
+
+
+
+          <h3 class="alert alert-info  text-center">Changer votre mot de passe</h3>
+          
+
+            {% csrf_token %}
+ 
+
+            <div class="form-group">
+             Ancien mot de passe:
+              {{form2.old_password}}
+
+              <span class="text-error" style="color:red;" >{{ form2.old_password.errors }}</span>
+          </div>
+
+          <div class="form-group">
+            Nouveau mot de passe:
+             {{form2.new_password1}}
+
+             <span class="text-error" style="color:red;" >{{ form2.new_password1.errors }}</span>
+         </div>
+
+         <div class="form-group">
+          Confirmation du nouveau mot de passe:
+           {{form2.new_password2}}
+
+           <span class="text-error" style="color:red;" >{{ form2.new_password2.errors }}</span>
+       </div>
+
+
+                <br> <br>
+            
+
+
+        </div>
+        <div class="modal-footer">
+        
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Retour</button>
+          <input type="submit" onclick="return confirm('Etes-vous sûr de vouloir modifier le mot de passe ?')"  value="Changer le mot de passe" class="btn btn-primary">
+
+
+        </form> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

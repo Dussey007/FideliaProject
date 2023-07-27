@@ -1,0 +1,14 @@
+
+# # ############################ EMAIL SETTING ###############
+# EMAIL_HOST=smtp.gmail.com
+# EMAIL_PORT=587
+# EMAIL_HOST_USER=mbktiktok6@gmail.com
+# EMAIL_HOST_PASSWORD="xryaaupvgzeetuwz"
+
+# # ############################ DB SETTING ###############
+# DB_ENGINE=mysql
+# DB_HOST=localhost
+# DB_NAME=clientpotentiel
+# DB_USERNAME=root
+# DB_PASS=moise@12345
+# DB_PORT=3306

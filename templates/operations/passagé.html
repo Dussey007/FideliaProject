@@ -1,0 +1,91 @@
+{% extends 'GesClient/base.html' %}
+
+{% block conteneur%}
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 contents">
+                  <div class="row justify-content-center">
+                    <div class="col-md-12">
+                      <div class="form-block">
+                            <div class="mb-4">
+                                <h3 class="alert alert-info">Modifier les informations du client</h3>
+                                <form action="" method="POST">
+                                    {% csrf_token %}
+                             
+
+                                    <div class="form-group first">
+                                        Nom :
+                                        <label for="categorie"></label>
+                                        {{ form.nom }}
+                                    </div>
+
+                                    <div class="form-group first">prenoms:
+                                        <label for="prenom"></label>
+                                        {{ form.prenom }}
+                                    </div>
+
+                                    <div class="form-group first">Genre:
+                                        <label for="sexe"></label>
+                                        {{ form.sexe }}
+                                    </div>
+
+
+                                    <div class="form-group first">Telephone:
+                                        <label for="telephone"></label>
+                                        {{ form.telephone }}
+                                    </div>
+                                    
+                                    <div class="form-group first">Email:
+                                        <label for="email"></label>
+                                        {{ form.email }}
+                                    </div>
+                                    
+                                    <div class="form-group first">Adresse:
+                                        <label for="adresse"></label>
+                                        {{ form.adresse }}
+                                    </div>
+                                    
+                                    <div class="form-group first">Profil:
+                                        <label for="profil"></label>
+                                        {{ form.profil }}
+                                    </div>
+                                    
+                                    <div class="form-group first">Profil:
+                                        <label for="profil"></label>
+                                        {{ form.profilS }}
+                                    </div>
+
+                                    <div class="form-group first">Profil:
+                                        <label for="profil"></label>
+                                        {{ form.nomGrade }}
+                                    </div>
+                                    
+                                    
+
+                                    <div class="form-group first">Date de rendez-vous:
+                                        <label for="date_rendez_vous"></label>
+                                        {{ form.date_rendez_vous }}
+                                    </div>
+
+
+
+                                    <span class="text-error" style="color:red">{{ form.errors }}</span>
+                                    <a href="{% url 'liste'%}"  >Retour</a> <br/> 
+                                    <input type="submit" onclick="return confirm('Etes-vous sûr de vouloir modifier le client ?')" value="Modifier" class="btn btn-pill text-white btn-block btn-success">
+                                    
+                                
+                                </form> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+       
+      
+
+{% endblock ajout %}

@@ -1,0 +1,49 @@
+{% extends 'GesClient/base.html' %}
+
+
+{% block conteneur %}
+
+<h1  class="alert alert-dark" style="text-align: center;"><b> Modification de la Tâche </b></h1>
+<hr class="ligne">
+<div class="content">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 contents">
+			    <div class="row justify-content-center">
+					<div class="col-md-12">
+				    	<div class="form-block">
+						 	<div class="mb-4">
+									<h3 class="alert alert-info">Modifier la tâche</h3>					
+
+										<form method="POST" action="">
+											{% csrf_token %}
+
+											<div class="form-group first">
+												Libelle Tâche:
+												<label for="categorie"></label>
+												{{ form.title }}
+											</div>
+
+											<div class="form-group first">
+												Statut Tâche:
+												<label for="categorie"></label>
+												{{ form.complete }}
+											</div>
+
+											<span class="text-error" style="color:red">{{ form.errors }}</span>
+											<input type="submit" class="btn btn-success" name="Update Task" value="Enregistrer">
+											
+											
+										</form>
+							</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+       
+
+
+{% endblock  %}

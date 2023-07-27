@@ -1,0 +1,50 @@
+{% extends 'GesClient/base.html' %}
+
+
+{% block conteneur %}
+        <section style="position: relative; overflow-x:scroll; "  class="scroller">
+                <h1 class="alert alert-info" style="text-align:center; ">Page de Liste des Clients de l'utilisateur </h1>
+                <hr class="ligne">
+                <br>
+                <div class="card-header">
+                  <h1 class="card-title" style="text-align:center;">LISTE CLIENTS DU PERSONNEL</h1>
+                </div>
+                <br/>
+                <br/>    
+                        <div class="">
+                         <div class="container">
+                           <div class="row">
+                              <div class="col-12"><!--table table-striped table-hover-->
+                                <button class ="btn btn-success"><a style="text-decoration: none; color: white;" href="{% url 'personnel' %}">Retour</a></button> <br/> <br/>
+                                <table  class="table table-bordered table-secondary table-hover"><!--table table-bordered-->
+                                  <thead class="tead">
+                                    <tr>
+                                      <th scope="col"> Nom </th>
+                                      <th scope="col">Prénom</th>
+                                      <th scope="col">Telephone</th>                
+                                      <th scope="col">Email</th>         
+                                      <th scope="col">Grades</th>  
+
+                                  
+
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {%for clt in Pclients %}
+                                        <tr>  
+                                          <td>{{clt.nom | upper}}</td>
+                                          <td>{{clt.prenom | lower}}</td>
+                                          <td>{{clt.telephone}}</td>
+                                          <td>{{clt.email}}</td>
+                                          <td>{{clt.nomGrade}}</td>
+                                    </tr>
+                                      
+                                    {% endfor%}
+
+
+                                  </tbody>
+                                </table>
+
+        </section>
+
+{% endblock %}

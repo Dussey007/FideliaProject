@@ -1,0 +1,36 @@
+{% extends 'GesClient/base.html' %}
+
+
+{% block conteneur %}
+
+<h1  class="alert alert-dark" style="text-align: center;"><b> Suppression de la Tâche selectionné </b></h1>
+<hr class="ligne">
+
+<div class="content">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6 contents">
+			    <div class="row justify-content-center">
+				    <div class="col-md-12">
+				        <div class="form-block">
+						    <div class="mb-4">
+								<h3 class="alert alert-info">Suppression de la tâche</h3>	
+
+									<b><p>Etes-vous sûr de vouloir supprimer "{{item}}"?</p> </b>
+
+										<a href="{% url 'lisT' %}" >Annuler</a>
+
+										<form method="POST" action="">
+											{% csrf_token %}
+											<input type="submit" class="btn btn-danger" name="Confirm" value="Supprimer">
+										</form>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		   
+{% endblock %}

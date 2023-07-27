@@ -1,0 +1,37 @@
+{% extends 'GesClient/base.html' %}
+
+{% block conteneur%}
+
+        <div style="background-color: white; 
+        box-shadow: 2px 2px  20px rgb(0, 0, 0); 
+        padding:20px; margin:200px; margin-top:60px;
+        border-radius:10px;
+        
+        ">
+                                <button class="btn btn-primary btn-xs">  <a href="{% url 'produit'%}"  style="color:white; text-decoration:none;">Retour</a></button> <br/> 
+
+                                    <br/> <br/>
+                                <h3 class="alert alert-info" style="text-align: center;">Modifier les informations du Produit</h3>
+                                <form action="" method="POST">
+                                    {% csrf_token %}
+
+                                    <div class="form-group first">
+                                        Categorie:
+                                        <label for="categorie"></label>
+                                          {{ form.categorie }}
+                                      </div>
+                
+                                      <div class="form-group first">Nom Produit:
+                                        <label for="nomProduit"></label>
+                                          {{ form.nomProduit }}
+                                      </div> 
+
+                                    <span class="text-error" style="color:red">{{ form.errors }}</span>
+                                    
+                                    <input type="submit" onclick="return confirm('Etes-vous sûr de vouloir modifier le produit ?')" value="Modifier" class="btn btn-pill text-white btn-block btn-success">
+                                                                    
+                                </form> 
+                           
+    </div>
+
+{% endblock %}

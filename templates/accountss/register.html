@@ -1,0 +1,74 @@
+{% extends 'GesClient/base.html' %}
+
+{% block conteneur %}
+       <div style="background-color: white;
+        box-shadow: 2px 2px  20px rgb(0, 0, 0);
+        padding:20px; margin:200px; margin-top:60px;
+        border-radius:10px;
+
+        ">
+                          <h1>Nouvel Utilisateur</h1>
+
+                      <span class="mb-0 text-muted">
+                    {% if msg %}
+                    
+                    <div class="alert alert-danger">
+                      <a style="text-decoration:none;" href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                       <p style="color:red;"> {{ msg | safe }} </p>
+                    </div>
+                    {% else %}
+                        Page de création utilisateur
+                    {% endif %}
+                  </span>
+                  <br/>
+                    <form  method="post">
+                        {% csrf_token %}
+    
+    
+                      <div class="form-group first">
+                        <label for="last_name">Nom </label>
+                          {{ form.last_name }}
+                          <span class="text-error" style="color:red;" >{{ form.last_name.errors }}</span>
+                      </div>
+                      <div class="form-group first">
+                        <label for="first_name">Prénom </label>
+                          {{ form.first_name }}
+                          <span class="text-error" style="color:red;" >{{ form.first_name.errors }}</span>
+                      </div>
+                      <div class="form-group first">
+                        <label for="username">Nom utilisateur</label>
+                          {{ form.username }}
+                          <span class="text-error" style="color:red;" >{{ form.username.errors }}</span>
+                      </div>
+                      <div class="form-group first">
+                        {% comment %} <p style="color:red">*L'email doit être unique !!</p> {% endcomment %}
+                        <label for="email">Email</label>
+                          {{ form.email}}
+                          <span class="text-error" style="color:red;" >{{ form.email.errors }}</span>
+                      </div>
+                      <div class="form-group first">
+                        <label for="poste">Poste</label>
+                          {{ form.poste}}
+                          <span class="text-error" style="color:red;" >{{ form.poste.errors }}</span>
+                      </div>
+                      <div class="form-group last mb-4">
+                        <p style="color:rgb(158, 9, 46)">*Votre mot de passe doit contenir des lettres majuscules, miniscules, chiffres et caractères !!</p>
+                        <label for="password">Mot de passe</label>
+                          {{ form.password1 }}
+                          <span class="text-error" style="color:red;" >{{ form.password1.errors }}</span>
+                      </div>
+                      <div class="form-group last mb-4">
+                        <label for="password">confirmation du mot de passe</label>
+                          {{ form.password2 }}
+                          <span class="text-error" style="color:red;" >{{ form.passwod2.errors }}</span>
+                      </div>
+                      <div class="form-group last mb-4">
+                        <label >Statut</label>
+                          {{ form.is_role }}
+                      </div>
+
+                      <input type="submit"  value="Enregistrer" class="btn btn-pill text-white btn-block btn-primary">
+                    </form>
+                 </div>
+
+{% endblock %}

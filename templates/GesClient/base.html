@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<!--=== Coding by CodingLab | www.codinglabweb.com === -->
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script type="text/javascript">
+        function cacher(id)
+        {
+            document.getElementById(id).style.display = 'none';
+        }
+        function afficher(id)
+        {
+            document.getElementById(id).style.display = 'block';
+        }
+</script>
+
+
+
+
+{% load static %}
+
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ajout.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style2.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/table.scss'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/drop.css'%}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link src="{% static 'images/fidelia.png'%}" rel="icon">
+    <link src="images/fidelia.png" rel="icon">
+
+
+
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.5/extend/icons/" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   
+   
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+    <style>
+        #id_client{
+            width:300px;
+        }
+    </style>
+    
+</head>
+<body>
+
+
+
+
+    <nav class="close">
+        <div class="logo-name">
+            <div class="logo-image">
+                <img class="logo" src="{% static 'images/fidelia.png'%}" alt="logo fidelia" >
+            </div>
+
+            <span class="logo_name"></span>
+        </div>
+
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="{% url 'home' %}">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Tableau de bord</span>
+                </a></li>
+
+                <li><a href="{% url 'ajouter' %}">
+                    <i class="uil uil-user"></i>
+                    <span class="link-name">Nouveau Prospect</span>
+                </a></li>   
+
+
+                <li><a href="{% url 'souscrire' %}">
+                    <i class="uil uil-clipboard-notes"></i>
+                    <span class="link-name" >Faire une Proposition</span>
+                </a></li> 
+
+
+                <li><a href="{% url 'lisT' %}">
+                    <i class="uil uil-calendar-alt"></i>
+                    <span class="link-name" >Mes Tâches</span>
+                </a></li> 
+
+            
+
+            
+            {% if user.is_authenticated and user.is_role == 'Administrateur' %} 
+                <li><a href="{% url 'categorie' %}">
+                    <i class="uil uil-bookmark"></i>
+                    <span class=" link-name">Nouvelle catégorie</span>
+                </a></li>
+
+            
+                <li><a href="{%url 'produit'%}">
+                    <i class="uil uil-box"></i>
+                       <span class=" link-name">Nouveau produit</span>
+                   </a></li>
+            
+
+                <li><a href="{%url 'grade'%}">
+                    <i class="uil uil-graduation-cap"></i> 
+                       <span class=" link-name">Nouveau grade</span>
+                   </a></li>
+            {% endif %}
+
+            {% if user.is_authenticated and user.is_role == 'Administrateur' %} 
+                <li><a href="{%url 'log'%}">
+                    <i class="uil uil-user-square"></i>
+                       <span class=" link-name">Nouvel utilisateur</span>
+                   </a></li>
+
+                   
+                <li><a href="{% url 'personnel' %}">
+                    <i class="uil uil-users-alt"></i>
+                    <span class="link-name" >Liste utilisateurs</span>
+                </a></li> 
+
+            {% endif %}
+
+                <li><a href="{%url 'parametre'%}">
+                    <i class="uil uil-setting"></i> 
+                       <span class=" link-name">Mon compte</span>
+                </a></li>
+
+                <li><a href="{%url 'import_data'%}">
+                    <i class="uil uil-outgoing-call"></i> 
+                       <span class=" link-name">Faire des appels</span>
+                </a></li>
+
+
+
+
+                <li> 
+                    <form  action="{%url 'quiter'%}" > 
+                     <a><i  class="uil uil-signout"></i>
+                        <span type="submit"  class="link-name confirm_Quit">Se déconnecter</span>
+                     </a>
+                    </form>
+                </li>
+               
+               <span class="logout-mode">
+                <li class="mode" style="visibility:hidden;">
+                    <a href="#">
+                        <i class="uil uil-moon"></i>
+                    <span class="link-name">Dark Mode</span>
+                    </a> 
+                    <div class="mode-toggle">
+                        <div class="mode-toggle">
+                    <span class="switch"></span>
+                    </div>
+                </li> </span> 
+            </ul>
+
+           
+        </div>
+    </nav>
+
+    <section class="dashboard">
+
+
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+
+           
+          
+           <p>{% block message%} {% endblock%}  {% block param%} {% endblock%}</p>
+            
+            {% block search%} {% endblock%}
+            {% block searchProduit%} {% endblock%}
+            {% block searchCategorie%} {% endblock%}
+            {% block searchSouscription%} {% endblock%}
+            {% block searchGrade %} {% endblock%}
+
+
+            <!--<img src="images/profile.jpg" alt="">-->
+        </div>
+
+        {% block rectangle%}{% endblock%}
+
+
+
+
+    <br/> <br/>
+
+
+    {% block conteneur%} {% endblock%}
+
+    {% block dash%} {% endblock%}
+    {% block defile %}{% endblock %}
+
+
+    <br/> <br/>
+
+        <div class="loader-wrapper">
+           <span class="loader"><span class="loader-inner"></span></span>
+        </div>
+    </section>
+
+
+
+
+{% block scripts %}{% endblock %}
+ 
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{%static 'js/script.js'%}"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        $('.confirm_Quit').click(function(event) {
+            var a =  $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                title: `Voulez-vous vraiment vous déconnecter ?`,
+                text: "Vous seriez redirigé vers la page de connexion!!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    a.submit();
+                }
+            });
+        });
+        
+        </script> 
+
+        {% block CustomScript %} {% endblock %}
+    {% if messages %}
+        {%for m in messages %}
+        {% if m.tags == 'success' %}
+              <script>
+                swal({
+                    "title":"félicitation",
+                    "text":"{{m}}",
+                    "icon":"success"
+                })
+              </script>
+        {% elif m.tags == 'error' %}
+            <script>
+                swal({
+                    "title":"échec",
+                    "text":"{{m}}",
+                    "icon":"error"
+                })
+            </script>
+        {% elif m.tags == 'warning' %}
+            <script>
+                swal({
+                    "title":"échec",
+                    "text":"{{m}}",
+                    "icon":"error"
+                })
+            </script>
+
+        {% elif m.tags == 'info' %}
+
+
+        <script type="text/javascript">
+            $('.show_confirm').click(function(event) {
+                var form =  $(this).closest("form");
+                var name = $(this).data("name");
+                event.preventDefault();
+                swal({
+                    title: `Voulez-vous vraiment supprimer cet enregistrement ?`,
+                    text: "{{ m }}",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
+            });
+            
+            </script>
+            {% comment %} <!--script>
+                swal({
+                    "title": "Are you sure?",
+                    "text": "{{ m }}",
+                    "icon": "warning",
+                    "buttons": true,
+                    "dangerMode": true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                    swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    });
+                    } else {
+                    swal("Your imaginary file is safe!");
+                    }
+                });
+            </script--> {% endcomment %}
+        {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% block js %} {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
+
+
+    <script>
+        document.getElementById("sup").addEventListener("click", function(){
+          if (confirm("Êtes-vous sûr de vouloir supprimer cet élément ?")) {
+            if (confirm("Cette opération est définitive. Êtes-vous vraiment sûr ?")) {
+              // Votre code pour effectuer la suppression ici
+            }
+          }
+        });
+    </script>
+
+
+    {% comment %} <script>
+        function imprimerListe() {
+            var liste = document.getElementById("ma-liste").innerHTML;
+            var fenetreImpression = window.open('', '', 'height=500,width=500');
+            fenetreImpression.document.write('<html><head><title>Impression</title></head><body>');
+            fenetreImpression.document.write(liste);
+            fenetreImpression.document.write('</body></html>');
+            fenetreImpression.document.close();
+            fenetreImpression.focus();
+            fenetreImpression.print();
+            fenetreImpression.close();
+        }
+        </script> {% endcomment %}
+
+    <script>
+        $(document).ready(function() {
+            $('#id_client').select2({
+                dropdownParent: $('#exampleModal')
+            });
+        });
+    </script>
+
+    <script>
+        $(window).on("load",function(){
+     $(".loader-wrapper").fadeOut("slow");
+        });
+    </script>
+
+</body>
+<footer>
+    <div style="background-color: #414c79;">
+        <h4 align="center">
+            <p>Copyright,2022, FIDELIA ASSURANCES S.A,</p>
+            <p>Tous les droits, réservés </p>
+        </h4>
+    </div>
+</footer>
+</html>

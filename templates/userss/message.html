@@ -1,0 +1,89 @@
+{% extends 'GesClient/base.html' %}
+
+{% block message%} 
+
+ <h2 class="centre"> Bienvenue {{ user.username }}  </h2> 
+
+{% endblock %}
+
+
+
+{% block rectangle%}
+<div class="dash-content">
+    <div class="overview">
+        <div class="title">
+            <i class="uil uil-tachometer-fast-alt"></i>
+            <span class="text" >Tableau de bord</span>
+        </div>
+
+        <div class="boxes" style="text-overflow:clip;">
+                    
+                        <div class="box box1 ">
+                            
+                            <i class="uil uil-users-alt"></i>
+                            <span class="text"><a style="text-decoration:none; color:black;" href="{% url 'liste' %}">Propositions en attente...</a></span>
+                            <span class="number">{{nbre}}</span>
+                        </div>
+                        
+                        <div class="box box2">
+                            <i class="uil uil-thumbs-down"></i>
+                            <span class="text"><a style="text-decoration:none; color:black;" href="{% url 'NConfirme' %}"> Propositions non réalisés</a></span>
+                            <span class="number">{{nbreClNS}}</span>
+                        </div>
+                        <div class="box box3">
+                            <i class="uil uil-thumbs-up"></i>
+                            <span class="text"><a style="text-decoration:none; color:black;" href="{% url 'Confirme' %}">Propositions réalisés</a></span>
+                            <span class="number">{{nbreClS}}</span>
+                        </div>
+                    
+        </div>
+    
+    </div>
+</div>
+{% endblock%}
+
+
+{% block dash%}
+<hr class="ligne">
+{% endblock%}
+
+        {% load static %}
+
+{% block defile %}
+
+            <br/> 
+
+            <div class="w3-content w3-section" style="max-width:1040px;  border-radius:5px;  position:relative; left:10px;    box-shadow:6px 1px 21px; ">
+                {% comment %} <p>The w3-animate-fading class animates an element in and out (takes about 10 seconds).</p> {% endcomment %}
+            
+                <img style="width:1040px; height:530px; border-radius:5px; " class="mySlides w3-animate-fading" src="{% static 'images/assurance-sante-1.jpg'%}" style="width:140%; height:100%;">
+                <img style="width:1040px; height:530px; border-radius:5px; box-shadow:inset 2px 2px 10px 2px ;" class="mySlides w3-animate-fading" src="{% static 'images/chantier.jpg'%}" style="width:140%; height:100%;">
+                <img style="width:1040px; height:530px; border-radius:5px;  box-shadow:inset 2px 2px 10px 2px  ;" class="mySlides w3-animate-fading" src="{% static 'images/produit.jpg'%}" style="width:140%; height:100%;">
+                <img style="width:1040px; height:530px; border-radius:5px;" class="mySlides w3-animate-fading" src="{% static 'images/batimentFidelia.jpg'%}" style="width:140%; height:100%;"> 
+                
+
+               <!-- <img style="width:1040px; height:530px; border-radius:5px; box-shadow:inset 2px 2px 10px 2px ;" class="mySlides w3-animate-fading" src="{% static 'images/car.jpg'%}" style="width:140%; height:100%;">
+                <img style="width:1040px; height:530px; border-radius:5px;  box-shadow:inset 2px 2px 10px 2px  ;" class="mySlides w3-animate-fading" src="{% static 'images/espace.jpg'%}" style="width:140%; height:100%;">
+                <img style="width:1040px; height:530px; border-radius:5px;" class="mySlides w3-animate-fading" src="{% static 'images/bg_1.jpg'%}" style="width:140%; height:100%;">  -->
+            </div>
+            
+
+            
+            <script>
+                var myIndex = 0;
+                carousel();
+                
+                function carousel() {
+                    var i;
+                    var x = document.getElementsByClassName("mySlides");
+                    for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";  
+                    }
+                    myIndex++;
+                    if (myIndex > x.length) {myIndex = 1}    
+                    x[myIndex-1].style.display = "block";  
+                    setTimeout(carousel, 9000);    
+                }
+        </script>
+
+{% endblock %}

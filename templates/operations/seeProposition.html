@@ -1,0 +1,74 @@
+{% extends 'GesClient/base.html' %}
+
+{% block conteneur %}
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 contents">
+                  <div class="row justify-content-center">
+                    <div class="col-md-12">
+                      <div class="form-block">
+                            <div class="mb-4">
+                                <button class="btn btn-primary btn-xs">  <a href="{% url 'souscrire'%}"  style="color:white; text-decoration:none;">Retour</a></button> <br/> 
+                                <br/>
+                                <h3 class="alert alert-info">Voir les Propositions</h3>
+                                <form>
+                                <div class="form-group first"><b>Nom Client:</b>
+                                    <label for="client"></label>
+                                      {{ pi.client }}   
+                                      <span class="text-error" style="color:red">{{ form.client.errors }}</span>   
+                                  </div>
+                          
+                                  <div class="form-group first"><b>Produit d'assurance:</b>
+                                    <label for="libelle"></label>
+                                      {{ pi.produit }}
+                                      <span class="text-error" style="color:red">{{ form.produit.errors }}</span>
+                                  </div>
+                          
+                                  <div class="form-group first"><b>Prime:</b>
+                                    <label for="souscription"></label>
+                                      {{ pi.prime }}
+                                      <span class="text-error" style="color:red">{{ form.prime.errors }}</span>
+                                  </div>
+                          
+                                  <div class="form-group first"><b>Date effet:</b>
+                                    <label for="date_effet"></label>
+                                      {{ pi.date_effet }}
+                                      <span class="text-error" style="color:red">{{ form.date_effet.errors }}</span>
+                                  </div>
+                          
+                                  <div class="form-group first"><b>Date echeance:</b>
+                                    <label for="date_echeance"></label>
+                                      {{ pi.date_echeance }}
+                                      <span class="text-error" style="color:red">{{ form.date_echeance.errors }}</span>
+                                  </div>  
+                                  
+                                  <div class="form-group first"><b>Statut Proposition:</b>
+                                    <label for="souscription"></label>
+                                      {{ pi.souscription }}
+                                      <span class="text-error" style="color:red">{{ form.souscription.errors }}</span>
+                                  </div>
+                          
+                                  <div class="form-group first"><b>Commentaires:</b>
+                                    <label for="souscription"></label>
+                                      {{ pi.commentaires }}
+                                      <span class="text-error" style="color:red">{{ form.commentaires.errors }}</span>
+                                  </div>
+                          
+                                </form>
+
+                                    <br/> 
+                                </form> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+       
+      
+
+{% endblock  %}

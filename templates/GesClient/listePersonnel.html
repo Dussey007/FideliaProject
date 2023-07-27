@@ -1,0 +1,131 @@
+{% extends 'GesClient/base.html' %}
+
+{% block search %} 
+    
+      
+        <form class="d-flex ml-3" action="{% url 'personnel' %}" method="GET">
+          <input class="form-control me-2" type="search" name="recherche" placeholder="rechercher nom...">
+          
+          <button class="btn btn-secondary" type="submit" >Rechercher</button> 
+        </form>      
+      
+    
+{% endblock %} 
+
+{% block conteneur %}
+    <section style="position: relative; overflow-x:scroll; ">
+                <h1 class="alert alert-info" style="text-align:center; " >Page de Liste de tous les Utilisateurs</h1>
+                <hr class="ligne">
+                <br>
+                <div class="card-header">
+                  <h1 class="card-title" style="text-align:center;">LISTE DES UTILISATEURS</h1>
+                </div>
+                    <br/>
+                    <div class="">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12"><!--table table-striped table-hover-->
+
+                                  <span  style="position:relative; left:5px;"><button type="button" class="btn btn-info"><a href="{%url 'log'%}" style="color: white;">Nouvelle Utilisateur</a></button></span>
+                                   
+                                  <span  style="position:relative; left:10px;"><button  class="btn btn-success"><iconify-icon icon="fluent:arrow-sync-circle-16-regular"></iconify-icon><a href="{%url 'personnel'%}" style="color: white;">Actualiser</a></button> </span>
+
+
+                                  
+                                  <br/> <br/>
+                                    <table  class="table table-bordered table-secondary table-hover"><!--table table-bordered-->
+                                    <thead class="tead">
+                                        <tr>
+                                        <th scope="col">Noms Employes</th>
+                                        <th scope="col">Prenom</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Poste</th>
+                                        <th scope="col">Rôle</th>
+                                        <th scope="col">Actions</th>
+                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        {%for li in nbreEmpl %}
+                                        <tr>  
+                                        <td>{{li.last_name | upper}}</td>
+                                        <td>{{li.first_name | lower}}</td>
+                                        <td>{{li.email}}</td>
+                                        <td>{{li.poste }}</td>
+                                        <td>{{li.is_role}}</td>
+                                        <td>
+                                            <a href="{% url 'voirU' li.id %}" class="btn btn-outline-success"><i class="uil uil-eye"></i></a>
+                                            <a href="{% url 'Pclients' li.id %}" class="btn btn-outline-primary" style="text-decoration: none">Clients</a>
+                                            {% if user.is_authenticated and user.is_role == 'Administrateur'%}           
+                                            <form action="{% url 'deletedUser' li.id %}" method="post" class="d-inline"> 
+                                            {% csrf_token %}
+                                            <a type="submit" class=" show_confirm"
+                                            data-toggle="tooltip" title='Delete'><i class=" btn btn-outline-danger uil uil-trash"></i>
+                                          </a>                     
+                                            </form> 
+                                            {% endif %}
+
+                                            </td>
+                                        </tr>
+                                        
+                                        {% endfor%}
+
+
+                                    </tbody>
+                                    </table>
+
+                                    <div>
+                                      <ul class="pagination justify-content-center">
+                                        {% if nbreEmpl.has_previous %}
+                                          <li class="page-item"> <!--href="?page={{ nbreEmpl.previous_page_number }}"-->
+                                            <a  class="page-link" href="?page={{ nbreEmpl.previous_page_number }">
+                                                <span aria-hidden="true" >&laquo;</span>
+                                            </a>
+                                          </li>
+                                        {% endif %}
+                                        <li class="page-item"><p class="page-link text-muted">Page {{ nbreEmpl.number }} sur {{ nbreEmpl.paginator.num_pages }}. </p></li>
+                                        {% if nbreEmpl.has_next %}
+                                        <li class="page-item">
+                                          <a class="page-link" href="?page={{ nbreEmpl.next_page_number }}">
+                                            <span aria-hidden="true" >&raquo;</span>
+                                          </a>
+                                        </li>
+                                        {% endif %}
+                                      </ul>
+                                    </div>
+                
+                
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    </section>
+                               
+
+{% endblock  %}
+
+{% block CustomScript %}
+<script type="text/javascript">
+  $('.show_confirm').click(function(event) {
+      var form =  $(this).closest("form");
+      var name = $(this).data("name");
+      event.preventDefault();
+      swal({
+          title: `Voulez-vous vraiment supprimer cet utilisateur ?`,
+          text: "Si vous le supprimez, il disparaîtra pour toujours.",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+      })
+      .then((willDelete) => {
+          if (willDelete) {
+              form.submit();
+          }
+      });
+  });
+  
+  </script>
+{% endblock %}

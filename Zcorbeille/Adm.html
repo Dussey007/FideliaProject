@@ -1,0 +1,72 @@
+{% extends 'GesClient/base.html' %}
+
+
+{% block admin_msg%}
+<h2 class="centre">Bienvenue {{ user.username }}</h2> 
+{% endblock%}
+
+
+{% block Adm %} 
+<ul class="nav-links">
+            <li>
+                <a href="{% url 'home' %}">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Tableau de bord</span>
+                </a>
+            </li>
+            <li><a href="{% url 'liste' %}">
+                    <i class="uil uil-users-alt"></i>
+                    <span class="link-name" >Liste client</span>
+                </a>
+            </li>
+
+                
+                <li><a href="{% url 'ajouter' %}">
+                    <i class="uil uil-user"></i>
+                    <span class="link-name">Ajout Client</span>
+                </a></li>
+
+
+                <li>
+                    
+                    <select class="textes" id="uil uil-users-alt">
+                        <i class="uil uil-users-alt"></i>
+                        <option  class="link-name" ><a href="{% url 'liste' %}"><i class="uil uil-users-alt"></i>
+                            <span class="textes">Clients</span></a></option>
+                        <option  class="textes" ><a href="{% url 'liste' %}"><i class="uil uil-users-alt"></i>
+                            <span class="textes">Confirmés</span></a></option>
+                        <option  class="textes" ><a href="{% url 'liste' %}"><i class="uil uil-users-alt"></i>
+                            <span class="textes">Non Confirmés</span></a></option>
+
+                    </select>
+                </li>
+<br/>
+            <li>
+                    
+                <select class="bords" id="uil uil-users-alt">
+                    <i class="uil uil-users-alt"></i>
+                            <option  class="link-name" ><i class="uil uil-users-alt"></i>
+                                <span class="textes">Employés</span></a>
+                            </option>
+                            <option  class="textes" ><a href="{% url 'liste' %}"><i class="uil uil-users-alt"></i>
+                                <span class="textes">Liste Employés</span></a>
+                            </option>
+                            <option  class="textes" ><a href="{% url 'liste' %}"><i class="uil uil-users-alt"></i>
+                                <span  class="textes" alt="Clients non confirmés"> Employés Clients </span></a>
+                            </option>
+                </select>
+            </li>
+            <li>
+                <a href="{%url 'parametre'%}">
+                    <i class="uil uil-setting"></i>
+                    <span class="link-name">Mon compte</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Se déconnecter</span>
+                </a>
+            </li>
+</ul>
+{% endblock %}

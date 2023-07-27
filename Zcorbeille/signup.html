@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    {%load static %}
+    {%load widget_tweaks%}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'css/sig.css'%}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un compte</title>
+</head>
+<body>
+    <form action="{%url 'signup'%}" method="POST" class="enrg">
+        {% csrf_token %}
+        <table>
+         {{ form.as_p }}inclure le formulaire avec des paragraphe -->
+        </table>
+
+
+    <tr>
+        <div class="form-group">
+            <!-- first_name is the name by which first name is created in django forms -->
+          <th>Email:</th><th> {% render_field form.email class="form-control" placeholder="email" type="email" %} </th>
+          </div>
+
+          <br>
+        <div class="form-group">
+            <!-- first_name is the name by which first name is created in django forms -->
+          <th>Mot de passe:</th><th> {% render_field form.password1 class="form-control" placeholder="password" type="password" %} </th>
+          </div>
+
+          <br>
+        <div class="form-group">
+            <!-- --first_name is the name by which first name is created in django forms -->
+           <th>Confirmation de mot de passe:</th><th> {% render_field form.password2 class="form-control" placeholder="password2" type="password" %} </th>
+          </div>
+
+          <br>
+
+        <th></th>
+<br>
+        </tr> 
+    <input type="submit" value="s'inscrire">
+    </form>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'fonts/icomoon/style2.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+
+    <title>Connexion utilisateurs</title>
+  </head>
+  <style>
+  body{
+      background-image: url("chantier.jpg");
+       background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Ffr.wikipedia.org%2Fwiki%2FImage&psig=AOvVaw0mrv8-SZqN2b8tfGSedro1&ust=1669414308736000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCKjhh4rrx_sCFQAAAAAdAAAAABAD");
+    }
+  </style>
+
+
+  <body class="logImage">
+  <div class="content">
+
+    <div class="container">
+      <div class="row justify-content-center">
+
+        <div class="col-md-6 contents">
+          <div class="row justify-content-center">
+            <div class="col-md-12">
+              <div class="form-block">
+
+                  <div class="mb-4">
+                      <div style="
+
+                width:100px;
+                height:100px;
+                position:relative;
+                left:113px;
+                ">
+<img src="{% static 'images/fidelia1.png' %}" alt="">
+                </div>
+                  </div>
+
+                {% for message in messages %}
+                <div class="alert alert-danger">
+                 <a style="text-decoration:none;" href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                 <p style="color:red;">{{message}}</p>
+               </div>
+               {% endfor %}
+
+
+               
+                <h2 style='text-align: center;'> <b>Connectez - vous !! </b></h2>
+
+                <form method="post">
+                    {% csrf_token %}
+                  <div class="form-group first">
+                    <label for="username">Nom d'utilisateur</label>
+                      {{ form.username }}
+                  </div>
+                  <div class="form-group last mb-4">
+                    <label for="password">Mot de passe</label>
+                    {{ form.password }}
+                  </div>
+
+                  <div class="d-flex mb-5 align-items-center">
+
+                    <span class="ml-auto"><a href="{% url 'password_reset' %}" class="forgot-pass">Mot de passe oublié ?</a></span>
+                  </div>
+
+
+
+                  <input type="submit" value="Se connecter" class="btn btn-pill text-white btn-block btn-primary">
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

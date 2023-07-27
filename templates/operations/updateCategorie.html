@@ -1,0 +1,34 @@
+{% extends 'GesClient/base.html' %}
+
+{% block conteneur%}
+
+        <div style="background-color: white; 
+        box-shadow: 2px 2px  20px rgb(0, 0, 0); 
+        padding:20px; margin:200px; margin-top:60px;
+        border-radius:10px;
+        
+        ">                                <button class="btn btn-primary btn-xs">  <a href="{% url 'categorie'%}"  style="color:white; text-decoration:none;">Retour</a></button> <br/> 
+
+                                    <br/>   <br/>
+                                    <h3 class="alert alert-info" style="text-align: center;">Modifier les informations de la categorie</h3>
+                                    <form action="" method="POST">
+                                        {% csrf_token %}
+
+                                        <div class="form-group first">
+                                            Nom Categorie:
+                                            <label for="categorie"></label>
+                                            {{ form.nomCategorie }}
+                                        </div>
+
+
+                                        <span class="text-error" style="color:red">{{ form.errors }}</span>
+                                        
+                                        <input type="submit" onclick="myfunction()" class="btn btn-pill text-white btn-block btn-success" value="Modifier">
+                                        
+                                    
+                                    </form> 
+    </div>
+       
+
+
+{% endblock %}

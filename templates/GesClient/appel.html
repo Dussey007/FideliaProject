@@ -1,0 +1,208 @@
+{% extends 'GesClient/base.html' %}
+
+{% block search%}
+
+
+<form class="d-flex ml-3" action="{% url 'import_data' %}" method="GET">
+  <input class="form-control me-2" type="search" name="recherche" placeholder="rechercher nom ...">
+
+  <button class="btn btn-secondary" type="submit" >Rechercher</button>
+</form>
+
+
+{% endblock %}
+
+
+{% block conteneur %}
+<h1 class="alert alert-dark" style="text-align: center;"> <b> PAGE D'APPEL CLIENTS</b> </h1>
+<hr class="ligne">
+
+<div class="card card-secondary">
+  <div class="card-header">
+    <h3 class="card-title">Importer des polices</h3>
+  </div>
+  <div class="card-body"> <!--  'account:import_data'  -->
+    <form role="form" method="POST" action="" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label>Choisissez un type de Format</label><br>
+        <input class="mb-2" type="file" name="importData">
+        <select class="custom-select" name="file-format1">
+          <option selected>Choix format...</option>
+          <option>XLS</option>
+          <option>XLSX</option>
+        </select>
+      </div> <br><br><br>
+      <button type="submit" class="btn btn-info btn-block">Importer</button>
+    </form>
+  </div>
+</div>
+
+
+
+<br/>  <br/>  <br/>
+
+<section style="position: relative; overflow-x:scroll;">
+
+  <br/>
+  
+    <div class="card-header">
+      <h1 class="card-title" style="text-align:center;">LISTE CLIENTS</h1>
+    </div>
+ 
+         <table  class="table table-striped table-hover"><!--table table-bordered / table-bordered table-secondary table-hover-->
+
+
+
+                      {% comment %} <span  style=""><button  class="btn btn-success"><iconify-icon icon="fluent:arrow-sync-circle-16-regular"></iconify-icon><a href="{%url 'import_data'%}" style="color: white;">Actualiser</a></button> </span> {% endcomment %}
+
+                    <br/> <br/>
+
+                    <thead class="tead">
+                      <tr>
+                        <th scope="col"> Branche </th>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Clients</th>
+                        <th scope="col">Téléphone</th>
+                        <th scope="col">Adresse</th>
+                        <th scope="col">Numéro Police</th>
+                        <th scope="col">Date Effet</th>
+                        <th scope="col">Date Expiration</th>
+                        <th scope="col">Immatriculation</th>
+                        <th scope="col">Marque</th>
+                        <th scope="col">Prime Totale</th>
+                        <th scope="col">Apporteur</th>
+                        <th scope="col">Appel 1</th>
+                        <th scope="col">Appel 2</th>
+                        <th scope="col">Appel 3</th>
+                        <th scope="col">Actions</th>
+                       <!-- <th scope="col">{{dateNow}}</th-->
+
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      {%for clt in client %}
+
+                        <tr>
+                        <td>{{clt.branche | upper}}</td>
+                        <td>{{clt.categorie | lower}}</td>
+                        <td>{{clt.clients}}</td>
+                        <td>{{clt.telephone}}</td>
+                        <td>{{clt.adresse}}</td>
+                        <td>{{clt.numero_police}}</td>
+                        <td>{{clt.date_effet}}</td>
+                        {%if clt.date_expiration > dateNow %}
+                        <td bgcolor="red">{{clt.date_expiration}} </td>
+                        {%else%}
+                        <td >{{clt.date_expiration}}</td>
+                          {% endif%}
+                        <td>{{clt.immatriculation}}</td>
+                        <td>{{clt.marque}}</td>
+                        <td>{{clt.prime_totale}}</td>
+                        <td>{{clt.apporteur}}</td>
+                        <td>
+
+                        {% if clt.ap1 == True %}
+                        
+                          <input type="checkbox" checked> / {{clt.last_modified_ap1}}
+                        {% else %}
+                          <input type="checkbox" disabled>
+                        {% endif %}
+
+                        </td>
+                        <td>
+
+                        {% if clt.ap2 == True %}
+                        {% comment %} {{dateDeux = clt.dates1}} {% endcomment %}
+                          <input type="checkbox" checked> / {{clt.last_modified_ap2}}
+                        {% else %}
+                          <input type="checkbox" disabled>
+                        {% endif %}
+
+                        </td>
+                        <td>
+
+                        {% if clt.ap3 == True %}
+                        {% comment %} /*{{dateTrois = clt.dates1}}*/ {% endcomment %}
+                          <input type="checkbox" checked> / {{clt.last_modified_ap3}}
+                        {% else %}
+                          <input type="checkbox" disabled>
+                        {% endif %}
+
+                        </td>
+
+
+                      <td style="display:flex; justify-content:space-around;">
+
+
+                        <a  href="{% url 'relanceUp' clt.id %}" class="btn btn-outline-primary"><i class="uil uil-calling"></i></a>
+
+                        {% if user.is_authenticated and user.is_role == 'Administrateur'%}
+                        <form action="{% url 'deletedRelance' clt.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <a type="submit" class=" show_confirm"
+                          data-toggle="tooltip" title='Delete'><i class=" btn btn-outline-danger uil uil-trash"></i>
+                        </a>   
+                        </form>
+                        {% endif %}
+                      </td>
+                      </tr>
+
+                      {% endfor%}
+
+
+                    </tbody>
+
+         </table>
+
+
+                  <div>
+                    <ul class="pagination justify-content-center">
+                      {% if client.has_previous %}
+                        <li class="page-item"> <!--href="?page={{ nbreEmpl.previous_page_number }}"-->
+                          <a  class="page-link" href="?page={{ nbreEmpl.previous_page_number }">
+                              <span aria-hidden="true" >&laquo;</span>
+                          </a>
+                        </li>
+                      {% endif %}
+                      <li class="page-item"><p class="page-link text-muted">Page {{ client.number }} sur {{ client.paginator.num_pages }}. </p></li>
+                      {% if client.has_next %}
+                      <li class="page-item">
+                        <a class="page-link" href="?page={{ client.next_page_number }}">
+                          <span aria-hidden="true" >&raquo;</span>
+                        </a>
+                      </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+
+
+
+</section>
+
+
+{% endblock %}
+
+{% block CustomScript %}
+<script type="text/javascript">
+  $('.show_confirm').click(function(event) {
+      var form =  $(this).closest("form");
+      var name = $(this).data("name");
+      event.preventDefault();
+      swal({
+          title: `Voulez-vous vraiment supprimer cet enrégistrement ?`,
+          text: "Si vous le supprimez, il disparaîtra pour toujours.",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+      })
+      .then((willDelete) => {
+          if (willDelete) {
+              form.submit();
+          }
+      });
+  });
+  
+  </script>
+{% endblock %}

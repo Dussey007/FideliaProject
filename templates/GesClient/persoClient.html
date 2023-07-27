@@ -1,0 +1,47 @@
+{% extends 'GesClient/base.html' %}
+
+
+{% block conteneur %}
+        <section style="position: relative; overflow-x:scroll; "  class="scroller">
+                <h1 class="alert alert-info" style="text-align:center; ">Page de Liste des Clients de l'utilisateur </h1>
+                <hr class="ligne">
+                <br>
+                <div class="card-header">
+                  <h1 class="card-title" style="text-align:center;">LISTE DES CLIENTS DU PERSONNEL</h1>
+                </div>
+            <span class="ajclt"><button type="button" class="btn btn-success"><i class="uil uil-plus"></i><a href="{%url 'ajouter'%}" style="color: white;">Ajout Client</a></button></span> <br/>
+                <br/> 
+                        <div class="">
+                         <div class="container">
+                           <div class="row">
+                              <div class="col-12"><!--table table-striped table-hover-->
+                                <table  class="table table-bordered table-secondary table-hover"><!--table table-bordered-->
+                                  <thead class="tead">
+                                    <tr>
+                                      <th scope="col">Nom Client</th>
+                                      <th scope="col">Produit d'assurance</th>
+                                      <th scope="col">Date d'effet </th>
+                                      <th scope="col">Date d'écheance</th>
+                                  
+                                  
+                                  
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {%for clt in Pclient %}
+                                        <tr>  
+                                        <td>{{clt.client | upper}}</td>
+                                        <td>{{clt.produit | upper}}</td>
+                                        <td>{{clt.date_effet }}</td>
+                                        <td>{{clt.date_echeance }}</td>
+                                    </tr>
+                                      
+                                    {% endfor%}
+                                  
+                                  
+                                  </tbody>
+                                </table>
+
+        </section>
+
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'GesClient/base.html' %}
+
+{% block conteneur%}
+
+<div class="container "  >
+  <div class="row">
+    <div class="col-md-8 mx-auto shadow p-3 mb-5 bg-white rounded" style="background-color: #fff;">
+
+                                <button class="btn btn-primary btn-xs">  <a href="{% url 'import_data'%}"  style="color:white; text-decoration:none;">Retour</a></button> <br/>
+
+                                    <br/> <br/>
+                                <h3 class="alert alert-info" style="text-align: center;">Faire un suivi du Client</h3>
+
+                                <form action="" method="POST">
+                                    {% csrf_token %}
+
+                                     <div class="form-group first">Branche:
+                                      <label for="nomProduit"></label>
+                                        {{ form.branche }}
+                                    </div>
+
+                                    <div class="form-group first">Catégorie:
+                                      <label for="categorie"></label>
+                                        {{ form.categorie }}
+                                    </div>
+
+                                    <div class="form-group first">Nom Client:
+                                      <label for="clients"></label>
+                                        {{ form.clients }}
+                                    </div>
+
+                                    <div class="form-group first">Branche:
+                                      <label for="nomProduit"></label>
+                                        {{ form.branche }}
+                                    </div>
+
+                                    <div class="form-group first">Téléphone:
+                                      <label for="telephone"></label>
+                                        {{ form.telephone }}
+                                    </div>
+
+                                    <div class="form-group first">Adresse:
+                                      <label for="adresse"></label>
+                                        {{ form.adresse }}
+                                    </div>
+
+                                    <div class="form-group first">Numéro de Police:
+                                      <label for="numero_police"></label>
+                                        {{ form.numero_police }}
+                                    </div>
+
+                                    <div class="form-group first">Date effet:
+                                      <label for="date_effet"></label>
+                                        {{ form.date_effet }}
+                                    </div>
+
+                                    <div class="form-group first">Date expiration:
+                                      <label for="date_expiration"></label>
+                                        {{ form.date_expiration }}
+                                    </div>
+
+                                    <div class="form-group first">Immatriculation:
+                                      <label for="immatriculation"></label>
+                                        {{ form.immatriculation }}
+                                    </div>
+
+                                    <div class="form-group first">Marque:
+                                      <label for="marque"></label>
+                                        {{ form.marque }}
+                                    </div>
+
+                                    <div class="form-group first">Prime totale:
+                                      <label for="prime_totale"></label>
+                                        {{ form.prime_totale }}
+                                    </div>
+
+                                    <div class="form-group first">Apporteur:
+                                      <label for="apporteur"></label>
+                                        {{ form.apporteur }}
+                                    </div>
+
+                                    <div class="form-group first">Branche:
+                                      <label for="nomProduit"></label>
+                                        {{ form.branche }}
+                                    </div>
+
+
+                                  <div class="row">
+                                    <div class="col-md-4">Premier appel:
+                                      <label for="ap1"></label>
+                                        {{ form.ap1 }}
+                                    </div>
+                                    {% if form.ap1.value|yesno:"True,False" == "True" %}
+                                    <div class="col-md-4">Second appel:
+                                      <label for="ap2"></label>
+                                        {{ form.ap2 }}
+                                    </div>
+                                    {%endif%}
+                                    {% if form.ap2.value|yesno:"True,False" == "True" %}
+
+                                    <div class=" col-md-4">Troisième appel:
+                                      <label for="ap3"></label>
+                                        {{ form.ap3 }}
+                                    </div>
+                                    {% endif %}
+                                  </div>
+
+                                  <br> <br>
+
+                                    <div class="form-group first" hidden="true">Date a1 :
+                                      <label for="last_modified_ap1"></label>
+                                        {{ form.last_modified_ap1 }}
+                                    </div>
+
+                                    <div class="form-group first" hidden="true">Date a2:
+                                      <label for="last_modified_ap2"></label>
+                                        {{ form.last_modified_ap2 }}
+                                    </div>
+
+                                    <div class="form-group first" hidden="true">Date a3:
+                                      <label for="last_modified_ap3"></label>
+                                        {{ form.last_modified_ap3 }}
+                                    </div>
+
+                                    <span class="text-error" style="color:red">{{ form.errors }}</span>
+                                    <input type="submit" onclick="return confirm('Etes-vous sûr de vouloir modifier le produit ?')" value="Valider" class="btn btn-pill text-white btn-block btn-success">
+
+
+                                </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

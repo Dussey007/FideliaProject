@@ -1,0 +1,75 @@
+{% extends 'GesClient/base.html' %}
+
+{% block conteneur %}
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 contents">
+                  <div class="row justify-content-center">
+                    <div class="col-md-12">
+                      <div class="form-block">
+                            <div class="mb-4">
+                                <button class="btn btn-primary btn-xs">  <a href="{% url 'personnel'%}"  style="color:white; text-decoration:none;">Retour</a></button> <br/> 
+                                <br/>
+                                <h3 class="alert alert-info">Voir les informations de l'utilisateur</h3>
+                                <form action="" method="post">
+                                    {% csrf_token %}
+
+                                    <div class="form-group first">
+                                        <b>  Nom: </b>
+                                        <label for="categorie"></label>
+                                      {{ pi.last_name | upper}}
+                                    </div>
+
+                                    <div class="form-group first"><b>Prénom::</b>
+                                        <label for="prenom"></label>
+                                        {{ pi.first_name  | lower}}
+                                    </div>
+
+                                    
+                                    <div class="form-group first">
+                                       <b> Nom utilisateur:</b>
+                                        <label for="categorie"></label>
+                                        {{ pi.username }}
+                                    </div>
+
+                                    <div class="form-group first"><b>Email:</b>
+                                        <label for="prenom"></label>
+                                        {{ pi.email }}
+                                    </div>
+
+                                    
+                                    <div class="form-group first">
+                                        <b>Poste:</b>
+                                        <label for="categorie"></label>
+                                        {{ pi.poste }}
+                                    </div>
+
+                                    <div class="form-group first"><b>Statut:</b>
+                                        <label for="prenom"></label>
+                                        {{ pi.is_role }}
+                                    </div>
+
+                                    <div class="form-group first"><b>Dernière connection:</b>
+                                        <label for="prenom"></label>
+                                        {{ pi.last_login }}
+                                    </div>
+
+
+                                    <br/> 
+
+                                    <span class="text-error" style="color:red">{{ form.errors }}</span>
+                                
+                                </form> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+       
+      
+
+{% endblock %}

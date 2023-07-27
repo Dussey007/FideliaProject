@@ -1,0 +1,293 @@
+{% extends 'GesClient/base.html' %}
+{% block script %}
+<script src="/js/script.js"></script>
+<script src="/js/scripts.js"></script>
+{% endblock %}
+
+
+
+{% block search%} 
+    
+      
+<form class="d-flex ml-3" action="{% url 'ajouter' %}" method="GET">
+  <input class="form-control me-2" type="search" name="recherche" placeholder="rechercher nom ...">
+  
+  <button class="btn btn-secondary" type="submit" >Rechercher</button> 
+</form>      
+    
+
+{% endblock %} 
+
+
+
+
+{% block conteneur%}
+<h1 class="alert alert-dark" style="text-align: center;"> <b> Formulaire d'enregistrement des prospections</b> </h1>
+<hr class="ligne">
+
+
+<div class="modal fade" id="ajoutClt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" ><strong>Ajouter un prospect</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+
+
+        <form class="ajou" action="{%url 'client'%}" method="POST">
+          {% csrf_token %}
+
+   
+
+        <div class="form-group first">
+          <b>Nom :</b>
+          <label for="categorie"></label>
+            {{ form.nom }}
+        </div>
+
+        <div class="form-group first"><b>Prenom:</b>
+          <label for="prenom"></label>
+            {{ form.prenom }}
+        </div>
+
+        <div class="form-group first"><b>Genre:</b>
+          <label for="sexe"></label>
+            {{ form.sexe }}
+        </div>
+
+
+        <div class="form-group first"><b>Telephone:</b>
+          <label for="telephone"></label>
+            {{ form.telephone }}
+        </div>
+        
+        <div class="form-group first"><b>Email:</b>
+          <label for="email"></label>
+            {{ form.email }}
+        </div>
+
+        
+        <div class="form-group first"><b>Adresse:</b>
+          <label for="adresse"></label>
+            {{ form.adresse }}
+        </div>
+        
+       <div class="form-group first"><b>Statut:</b>
+          <label for="profil"></label>
+            {{ form.profil }}
+        </div>
+
+        <div class="form-group first"><b>Profil Société:</b>
+          <label for="profil"></label>
+            {{ form.profilS }}
+        </div>
+
+        <div class="form-group first"><b>Grade:</b>
+          <label for="profil"></label>
+            {{ form.nomGrade }}
+        </div>
+        
+        <div class="form-group first">
+          <b>Date de rendez-vous:</b>  
+          <label for="date_rendez_vous"></label>
+            {{ form.date_rendez_vous }}
+        </div>
+      
+
+          {% if form.errors %}
+              <div class="alert alert-danger">
+                  <span class="text-error" style="color:red">{{ form.errors }}</span>
+              </div>
+          {% endif %}
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </form> 
+    </div>
+  </div>
+</div>
+
+
+<section style="position: relative; overflow-x:scroll;">
+  <div class="card-header">
+    <h3 class="card-title" style="text-align:center;">LISTE DES PROSPECTIONS</h3>
+  </div>
+  
+    
+  <br/> 
+          <div class="">
+           <div class="container">
+             <div class="row">
+                <div class="col-12"><!--table table-striped table-hover-->
+                  <table id="ma-liste" class="table table-bordered table-secondary table-hover"><!--table table-bordered--> 
+
+                      <span  style="position:relative; left:5px;"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajoutClt">Nouveau Prospect</button></span>
+
+                      <span  style="position:relative; left:10px;"><button type="button" class="btn btn-info"><a href="{%url 'liste'%}" style="color: white;">Liste prospects</a></button></span>
+
+                      {% comment %} <span  style="position:relative; left:15px;"><button  class="btn btn-success"><iconify-icon icon="fluent:arrow-sync-circle-16-regular"></iconify-icon><a href="{%url 'ajouter'%}" style="color: white;">Actualiser</a></button> </span> {% endcomment %}
+
+                    <br/> <br/> 
+
+                    <thead class="tead">
+                      <tr>
+                        <th scope="col"> Nom </th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Telephone</th>                
+                        <th scope="col">Email</th>         
+                        <th scope="col">Grades</th>  
+                        <th scope="col">Statut</th>          
+                        <th scope="col">Date rendez-vous</th>
+                        <th scope="col">Actions</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% comment %} {%for clt in page.object_list %} {% endcomment %}
+                      {%for clt in page %}
+                        <tr>  
+                        <td>{{clt.nom | upper}}</td>
+                        <td>{{clt.prenom | lower}}</td>
+                        <td>{{clt.telephone}}</td>
+                        <td>{{clt.email}}</td>
+                        <td>{{clt.nomGrade}}</td>
+                        <td>{{clt.profil}}</td>
+                        <td>{{clt.date_rendez_vous}}</td>
+
+                      
+                      <td style="display:flex;">
+                  <a href="{% url 'seeCl' clt.id %}" class="btn btn-outline-success" style="padding-bottom:2px;">Visualiser</a>
+                        
+                        <a  href="{% url 'updateCl' clt.id %}" class="btn btn-outline-primary"><i class="uil uil-edit"></i></a>  
+                        {% if user.is_authenticated and user.is_role == 'Administrateur'%}           
+                        <form action="{% url 'deletedCl' clt.id %}" method="post" class="d-inline"> 
+                        {% csrf_token %}
+                         <a type="submit" class=" show_confirm"
+                         data-toggle="tooltip" title='Delete'><i class=" btn btn-outline-danger uil uil-trash"></i>
+                      </a>   
+                        </form> 
+                        {% endif %}
+
+                      </td>
+                      </tr>
+                        
+                      {% endfor%}
+
+                    </tbody>
+                  </table>
+
+                  <div clas="container">
+                    <div class="row my-5">
+                      <div class="col-md-4 offset-md-3" >
+                      
+                      <p>Page: {{ page.number }}/{{ page.paginator.num_pages }}</p>
+                        <span aria-label="...">
+                          
+                          <ul class="pagination justify-content-center">
+                            
+                            <li class="page-item">
+                              {% if page.has_previous %}
+                              <a class="page-link" href=" ?page={{ page.previous_page_number }}" tabindex="-1">Précédent</a>
+                              {% endif%}
+                            </li>
+      
+                            {% for num_page in page.paginator.page_range%}
+                            <br/> 
+                            {% if page.number == num_page %}
+                            <li class="page-item active">
+                              <a class="page-link" href=" ?page={{ num_page }}">{{num_page}}<span class="sr-only">(current)</span></a>
+                            </li>
+                            {% else %}
+                            <li class="page-item ">
+                              <a class="page-link" href="?page={{ num_page }}">{{num_page}}<span class="sr-only">(current)</span></a>
+                            </li>
+                            {% endif%}
+                            <br/> <!--Pour eviter les erreurs de confusions-->
+                            {% endfor %}
+      
+                            <li class="page-item">
+                              {% if page.has_next %}
+                              <a class="page-link" href=" ?page={{  page.next_page_number}}">Suivant</a>
+                              {% endif%}
+                            </li>
+                          </ul> 
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+</section>
+
+
+{% endblock%}
+
+{% block CustomScript %}
+<script type="text/javascript">
+  $('.show_confirm').click(function(event) {
+      var form =  $(this).closest("form");
+      var name = $(this).data("name");
+      event.preventDefault();
+      swal({
+          title: `Voulez-vous vraiment supprimer ce client ?`,
+          text: "Si vous le supprimez, il disparaîtra pour toujours.",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+      })
+      .then((willDelete) => {
+          if (willDelete) {
+              form.submit();
+          }
+      });
+  });
+  
+  </script>
+
+
+  <script type="text/javascript">
+      function imprimerListe() {
+          // Sélectionne la table à imprimer
+          var table = document.getElementById("ma-liste");
+      
+          // Supprime les colonnes que vous ne voulez pas inclure dans l'impression
+          var colonnesASupprimer = [7]; // Supprime la 7ème et 8ème colonne
+          for (var i = colonnesASupprimer.length -1; i >= 0; i--) {
+              var col = colonnesASupprimer[i];
+              for (var j = 0; j < table.rows.length; j++) {
+                  table.rows[j].deleteCell(col);
+              }
+          }
+      
+          // Ouvre une nouvelle fenêtre d'impression
+          var fenetreImpression = window.open('', '', 'height=500,width=500');
+      
+          // Écrit le contenu de la table dans la fenêtre d'impression
+          fenetreImpression.document.write('<html><head><title>Impression</title></head><body>');
+          fenetreImpression.document.write(table.outerHTML);
+          fenetreImpression.document.write('</body></html>');
+      
+          // Ferme le document et focus sur la fenêtre d'impression
+          fenetreImpression.document.close();
+          fenetreImpression.focus();
+      
+          // Lance la fonction d'impression
+          fenetreImpression.print();
+      
+          // Ferme la fenêtre d'impression
+          fenetreImpression.close();
+      }
+      
+    </script>
+{% endblock %}

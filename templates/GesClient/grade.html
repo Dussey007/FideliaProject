@@ -1,0 +1,173 @@
+{% extends 'GesClient/base.html' %}
+
+
+{% block searchGrade%} 
+    
+      
+        <form class="d-flex" method="GET">
+          <input class="form-control me-2" type="search" name="recherche" placeholder="Rechercher une grade...">
+          
+          <button class="btn btn-secondary" type="submit" >Rechercher</button> 
+        </form>      
+      
+    
+{% endblock %} 
+
+
+{% block conteneur %} 
+
+          <h1 id="Cat" class="alert alert-dark" style="text-align: center;"><b>Formulaire d'ajout des Grades et Liste des Grades</b></h1>
+
+          <hr class="ligne">
+        <br> 
+          <div class="card-header">
+            <h1 class="card-title" style="text-align:center;">LISTE DES GRADES</h1>
+          </div>
+            <br> <br>
+                <span style="overflow:hidden;">
+                  <div class="container">
+                      <div class="row">
+                        <br/>
+                        <div class="col-12"><!--table table-striped table-hover-->
+
+
+                          <button  class="btn btn-success"><iconify-icon icon="fluent:arrow-sync-circle-16-regular"></iconify-icon><a href="{%url 'grade'%}" style="color: white;">Actualiser</a></button> 
+                         
+
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Nouveau grade
+                          </button>
+
+
+                          <br/> <br/>
+
+                          <table style="max-width:auto; overflow-x: scroll; " class="table table-bordered table-secondary table-hover"> <!--table table-bordered-->
+                            <thead class="tead">
+                              <tr>
+                               
+                                <th scope="col">Nom grades</th>      
+                                <th scope="col">Commentaires</th>         
+      
+                                <th scope="col">Actions</th>
+      
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {%for gad in Grade %}
+                              <tr>
+                           
+                                
+                                <td>{{gad.nomGrade}}</td>
+                                <td>{{gad.commentaires}}</td>
+      
+                               
+                              <td style="display:flex;">
+        
+                                <a  href="{% url 'updateGrade' gad.id%}" class="btn btn-outline-primary"><i class="uil uil-edit"></i></a>   
+                                {% if user.is_authenticated and user.is_role == 'Administrateur'%}                                              
+                                 <form action="{% url 'deletedGrade' gad.id %}" method="post" class="d-inline"> 
+                                  {% csrf_token %}
+                                  <a type="submit" class=" show_confirm"
+                                    data-toggle="tooltip" title='Delete'><i class=" btn btn-outline-danger uil uil-trash"></i>
+                                  </a> 
+                                </form> 
+                                {% endif %} 
+                              </td>
+                                
+                              </tr>
+                              {% endfor%}
+                            </tbody>
+                          </table>
+
+
+                          <div>
+                            <ul class="pagination justify-content-center">
+                              {% if Grade.has_previous %}
+                                <li class="page-item"> <!--href="?page={{ Grade.previous_page_number }}"-->
+                                  <a  class="page-link" href="?page={{ Grade.previous_page_number }">
+                                      <span aria-hidden="true" >&laquo;</span>
+                                  </a>
+                                </li>
+                              {% endif %}
+                              <li class="page-item"><p class="page-link text-muted">Page {{ Grade.number }} sur {{ Grade.paginator.num_pages }}. </p></li>
+                              {% if Grade.has_next %}
+                              <li class="page-item">
+                                <a class="page-link" href="?page={{ Grade.next_page_number }}">
+                                  <span aria-hidden="true" >&raquo;</span>
+                                </a>
+                              </li>
+                              {% endif %}
+                            </ul>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                </span>
+
+
+
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nouvelle grade</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+
+                        <form class="ajou" action="{%url 'gradeAj'%}" method="POST">
+                          {% csrf_token %}
+                        
+                        <div class="form-group first"><b>Nom Grade:</b>
+                          <label for="nomGrade"></label>
+                            {{ form.nomGrade }}
+                        </div>
+
+                        <div class="form-group first"><b>Commentaires Grade:</b><br/>
+                            <label for="commentaires"></label>
+                              {{ form.commentaires }}
+                        </div>
+
+                        <br/>
+                        <span class="text-error" style="color:red; background-color:; width:; height:;">{{ form.errors }}</span>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+
+
+
+{% endblock%}
+
+{% block CustomScript %}
+<script type="text/javascript">
+  $('.show_confirm').click(function(event) {
+      var form =  $(this).closest("form");
+      var name = $(this).data("name");
+      event.preventDefault();
+      swal({
+          title: `Voulez-vous vraiment supprimer ce grade ?`,
+          text: "Si vous le supprimez, il disparaîtra pour toujours.",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+      })
+      .then((willDelete) => {
+          if (willDelete) {
+              form.submit();
+          }
+      });
+  });
+  
+  </script>
+{% endblock %}
